@@ -49,7 +49,8 @@ public class playercontroller : MonoBehaviour
             velocity.y = -2f; // Prevent floating above the ground
         }
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        // Jumping when the J key is pressed
+        if (Input.GetKeyDown(KeyCode.J) && IsGrounded())
         {
             velocity.y = Mathf.Sqrt(JumpForce * -2f * Gravity);
         }
