@@ -44,15 +44,18 @@ public class playercontroller : MonoBehaviour
         }
 
         // Ground check and jumping
-        if (IsGrounded() && velocity.y < 0)
+        if (characterController.isGrounded)
         {
-            velocity.y = -2f; // Prevent floating above the ground
-        }
+            if (velocity.y < 0)
+            {
+                velocity.y = -2f; // Prevent floating above the ground
+            }
 
-        // Jumping when the J key is pressed
-        if (Input.GetKeyDown(KeyCode.J) && IsGrounded())
-        {
-            velocity.y = Mathf.Sqrt(JumpForce * -2f * Gravity);
+            // Jumping when the J key is pressed
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                velocity.y = Mathf.Sqrt(JumpForce * -2f * Gravity); // Jump force calculation
+            }
         }
 
         // Apply gravity
@@ -75,10 +78,5 @@ public class playercontroller : MonoBehaviour
             PlayerCamera.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
             transform.Rotate(Vector3.up * mouseX);
         }
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, GroundCheckDistance);
     }
 }
